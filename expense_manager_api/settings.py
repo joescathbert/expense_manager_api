@@ -28,17 +28,18 @@ DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-django_host = os.getenv('DJANGO_ALLOWED_HOST', None)
+django_host = os.getenv('DJANGO_ALLOWED_HOST', 'localhost')
+django_port = os.getenv('DJANGO_PORT', '8000')
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"] + [django_host] if django_host else []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"] + [django_host]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-] + [f"http://{django_host}:8000"] if django_host else []
+    f"http://localhost:{django_port}",
+    f"http://127.0.0.1:{django_port}",
+] + [f"http://{django_host}:{django_port}"]
 
 SWAGGER_SETTINGS = {
-    "DEFAULT_API_URL": f"http://{django_host}:8000" if django_host else "http://localhost:8000",
+    "DEFAULT_API_URL": f"http://{django_host}:{django_port}",
 }
 
 
